@@ -2,45 +2,45 @@
 #include <G4SDManager.hh>
 #include <g4root.hh>
 
-#include "IBTEventAction.hpp"
+#include "MyEventAction.hpp"
 
 
-IBTEventAction::IBTEventAction()
+MyEventAction::MyEventAction()
    : G4UserEventAction(),
      fHitsCollectionID(-1)
 {}
 
-IBTEventAction::~IBTEventAction()
+MyEventAction::~MyEventAction()
 {}
 
-IBTHitsCollection *IBTEventAction::GetHitsCollection(G4int hcID, const G4Event *event)
+MyHitsCollection *MyEventAction::GetHitsCollection(G4int hcID, const G4Event *event)
 const
 {
-   IBTHitsCollection *hitsCollection 
-      = static_cast<IBTHitsCollection *>(
+   MyHitsCollection *hitsCollection 
+      = static_cast<MyHitsCollection *>(
          event->GetHCofThisEvent()->GetHC(hcID));
   
    if ( ! hitsCollection ) {
       G4ExceptionDescription msg;
       msg << "Cannot access hitsCollection ID " << hcID;
       // check how to use G4Exception
-      G4Exception("IBTEventAction::GetHitsCollection()",
+      G4Exception("MyEventAction::GetHitsCollection()",
                   "MyCode0003", FatalException, msg);
    }         
 
    return hitsCollection;
 }
 
-void IBTEventAction::BeginOfEventAction(const G4Event *)
+void MyEventAction::BeginOfEventAction(const G4Event *)
 {}
 
-void IBTEventAction::EndOfEventAction(const G4Event *event)
+void MyEventAction::EndOfEventAction(const G4Event *event)
 {
 
    if (fHitsCollectionID == -1)
       fHitsCollectionID = G4SDManager::GetSDMpointer()->GetCollectionID("HC");
    
-   IBTHitsCollection *hc = GetHitsCollection(fHitsCollectionID, event);
+   MyHitsCollection *hc = GetHitsCollection(fHitsCollectionID, event);
    
    G4int eventID = event->GetEventID();
 
@@ -48,7 +48,7 @@ void IBTEventAction::EndOfEventAction(const G4Event *event)
 
    const G4int kHit = hc->entries();
    for (G4int iHit = 0; iHit < kHit; iHit++) {
-      IBTHit *newHit = (*hc)[iHit];
+      MyHit *newHit = (*hc)[iHit];
 
       anaMan->FillNtupleIColumn(0, 0, eventID); // EventID
 

@@ -1,27 +1,24 @@
-#include "IBTActionInitialization.hpp"
-#include "IBTPrimaryGeneratorAction.hpp"
-#include "IBTRunAction.hpp"
-#include "IBTEventAction.hpp"
+#include "MyActionInitialization.hpp"
+#include "MyPrimaryGeneratorAction.hpp"
+#include "MyRunAction.hpp"
+#include "MyEventAction.hpp"
 
 
-IBTActionInitialization::IBTActionInitialization(G4bool monoFlag, G4double ene)
+MyActionInitialization::MyActionInitialization()
    : G4VUserActionInitialization()
-{
-   fMonoFlag = monoFlag;
-   fEnergy = ene;
-}
-
-IBTActionInitialization::~IBTActionInitialization()
 {}
 
-void IBTActionInitialization::BuildForMaster() const
+MyActionInitialization::~MyActionInitialization()
+{}
+
+void MyActionInitialization::BuildForMaster() const
 {
-   SetUserAction(new IBTRunAction());
+   SetUserAction(new MyRunAction());
 }
 
-void IBTActionInitialization::Build() const
+void MyActionInitialization::Build() const
 {
-   SetUserAction(new IBTPrimaryGeneratorAction(fMonoFlag, fEnergy));
-   SetUserAction(new IBTRunAction());
-   SetUserAction(new IBTEventAction());
+   SetUserAction(new MyPrimaryGeneratorAction());
+   SetUserAction(new MyRunAction());
+   SetUserAction(new MyEventAction());
 }

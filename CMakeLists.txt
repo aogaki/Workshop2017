@@ -40,8 +40,8 @@ file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hpp)
 #----------------------------------------------------------------------------
 # Add the executable, and link it to the Geant4 libraries
 #
-add_executable(MyPro main.cpp ${sources} ${headers})
-target_link_libraries(MyPro ${Geant4_LIBRARIES};${ROOT_LIBRARIES})
+add_executable(example main.cpp ${sources} ${headers})
+target_link_libraries(example ${Geant4_LIBRARIES};${ROOT_LIBRARIES})
 
 #----------------------------------------------------------------------------
 # Copy all scripts to the build directory, i.e. the directory in which we
@@ -73,5 +73,5 @@ add_custom_target(BioIrradiation DEPENDS MyPro)
 #----------------------------------------------------------------------------
 # Install the executable to 'bin' directory under CMAKE_INSTALL_PREFIX
 #
-install(TARGETS MyPro DESTINATION bin)
+install(TARGETS example DESTINATION bin)
 

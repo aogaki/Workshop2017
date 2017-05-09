@@ -8,31 +8,31 @@
 #include <G4Material.hh>
 #include <G4VProcess.hh>
 
-#include "IBTSD.hpp"
-#include "IBTHit.hpp"
+#include "MySD.hpp"
+#include "MyHit.hpp"
 
 
-IBTSD::IBTSD(const G4String &name,
+MySD::MySD(const G4String &name,
              const G4String &hitsCollectionName)
    : G4VSensitiveDetector(name)
 {
    collectionName.insert(hitsCollectionName);
 }
 
-IBTSD::~IBTSD()
+MySD::~MySD()
 {}
 
-void IBTSD::Initialize(G4HCofThisEvent *hce)
+void MySD::Initialize(G4HCofThisEvent *hce)
 {
    fHitsCollection
-      = new IBTHitsCollection(SensitiveDetectorName, collectionName[0]);
+      = new MyHitsCollection(SensitiveDetectorName, collectionName[0]);
 
    G4int hcID
       = G4SDManager::GetSDMpointer()->GetCollectionID(collectionName[0]);
    hce->AddHitsCollection(hcID, fHitsCollection);
 }
 
-G4bool IBTSD::ProcessHits(G4Step *step, G4TouchableHistory */*history*/)
+G4bool MySD::ProcessHits(G4Step *step, G4TouchableHistory */*history*/)
 {
    G4Track *track = step->GetTrack();   
    G4int trackID = track->GetTrackID();
@@ -41,7 +41,7 @@ G4bool IBTSD::ProcessHits(G4Step *step, G4TouchableHistory */*history*/)
    G4StepPoint *postStepPoint = step->GetPostStepPoint();
    G4int isExit = (postStepPoint->GetStepStatus() == fGeomBoundary);
    if(isExit == 0) return false; // only going out particle
-   IBTHit *newHit = new IBTHit();
+   MyHit *newHit = new MyHit();
    newHit->SetIsExit(isExit);
       
    newHit->SetTrackID(trackID);
@@ -58,6 +58,11 @@ G4bool IBTSD::ProcessHits(G4Step *step, G4TouchableHistory */*history*/)
    
    G4ThreeVector position =  postStepPoint->GetPosition();
    newHit->SetPosition(position);
+   G4TouchableHandle theTouchable = postStepPoint->GetTouchableHandle();
+   G4ThreeVector localPosition = theTouchable->GetHistory()->
+                                 GetTopTransform().TransformPoint(position);
+
+   G4String vertexName = track->GetLogicalVolumeAtVertex()->GetName();
    
    G4double kineticEnergy = postStepPoint->GetKineticEnergy();
    newHit->SetKineticEnergy(kineticEnergy);

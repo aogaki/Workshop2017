@@ -1,14 +1,14 @@
-#ifndef IBTPhysicsList_h
-#define IBTPhysicsList_h 1
+#ifndef MyPhysicsList_h
+#define MyPhysicsList_h 1
 
 #include "G4VModularPhysicsList.hh"
 
 
-class IBTPhysicsList: public G4VModularPhysicsList
+class MyPhysicsList: public G4VModularPhysicsList
 {
   public:
-    IBTPhysicsList( );
-    virtual ~IBTPhysicsList();
+    MyPhysicsList( );
+    virtual ~MyPhysicsList();
 };
 
 #endif

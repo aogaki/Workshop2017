@@ -1,5 +1,5 @@
-#ifndef IBTHit_h
-#define IBTHit_h 1
+#ifndef MyHit_h
+#define MyHit_h 1
 
 #include "G4VHit.hh"
 #include "G4THitsCollection.hh"
@@ -8,14 +8,14 @@
 #include "G4ThreeVector.hh"
 
 
-class IBTHit : public G4VHit
+class MyHit : public G4VHit
 {
 public:
-   IBTHit();
-   virtual ~IBTHit();
-   IBTHit(const IBTHit &right);
-   const IBTHit &operator=(const IBTHit &right);
-   int operator==(const IBTHit &right) const;
+   MyHit();
+   virtual ~MyHit();
+   MyHit(const MyHit &right);
+   const MyHit &operator=(const MyHit &right);
+   int operator==(const MyHit &right) const;
 
    inline void *operator new(size_t);
    inline void  operator delete(void *);
@@ -60,20 +60,20 @@ private:
    G4String fVolumeName;
 };
 
-typedef G4THitsCollection<IBTHit> IBTHitsCollection;
+typedef G4THitsCollection<MyHit> MyHitsCollection;
 
-extern G4ThreadLocal G4Allocator<IBTHit> *IBTHitAllocator;
+extern G4ThreadLocal G4Allocator<MyHit> *MyHitAllocator;
 
-inline void *IBTHit::operator new(size_t)
+inline void *MyHit::operator new(size_t)
 {
-   if (!IBTHitAllocator)
-      IBTHitAllocator = new G4Allocator<IBTHit>;
-   return (void *)IBTHitAllocator->MallocSingle();
+   if (!MyHitAllocator)
+      MyHitAllocator = new G4Allocator<MyHit>;
+   return (void *)MyHitAllocator->MallocSingle();
 }
 
-inline void IBTHit::operator delete(void *hit)
+inline void MyHit::operator delete(void *hit)
 {
-   IBTHitAllocator->FreeSingle((IBTHit *) hit);
+   MyHitAllocator->FreeSingle((MyHit *) hit);
 }
 
 #endif

@@ -1,16 +1,16 @@
 #include <g4root.hh>
 
-#include "IBTRunAction.hpp"
+#include "MyRunAction.hpp"
 
 
-IBTRunAction::IBTRunAction()
+MyRunAction::MyRunAction()
    : G4UserRunAction()
 {}
 
-IBTRunAction::~IBTRunAction()
+MyRunAction::~MyRunAction()
 {}
 
-void IBTRunAction::BeginOfRunAction(const G4Run *)
+void MyRunAction::BeginOfRunAction(const G4Run *)
 {
    G4AnalysisManager *anaMan = G4AnalysisManager::Instance();
    anaMan->SetVerboseLevel(1);
@@ -20,7 +20,7 @@ void IBTRunAction::BeginOfRunAction(const G4Run *)
    anaMan->OpenFile(fileName);
 
    // Ntuple
-   anaMan->CreateNtuple("IBT", "Ion beam test");
+   anaMan->CreateNtuple("My", "Ion beam test");
    anaMan->CreateNtupleIColumn(0, "EventID");
    anaMan->CreateNtupleIColumn(0, "TrackID");
    anaMan->CreateNtupleSColumn(0, "VolumeName");
@@ -54,7 +54,7 @@ void IBTRunAction::BeginOfRunAction(const G4Run *)
    anaMan->FinishNtuple();
 }
 
-void IBTRunAction::EndOfRunAction(const G4Run *)
+void MyRunAction::EndOfRunAction(const G4Run *)
 {
    G4AnalysisManager *anaMan = G4AnalysisManager::Instance();
    anaMan->Write();

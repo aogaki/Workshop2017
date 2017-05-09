@@ -6,11 +6,11 @@
 #include <G4SDManager.hh>
 #include <G4LogicalVolumeStore.hh>
 
-#include "IBTDetectorConstruction.hpp"
-#include "IBTSD.hpp"
+#include "MyDetectorConstruction.hpp"
+#include "MySD.hpp"
 
 
-IBTDetectorConstruction::IBTDetectorConstruction()
+MyDetectorConstruction::MyDetectorConstruction()
    : fVacuumMat(nullptr),
      fAirMat(nullptr),
      fKaptonMat(nullptr)
@@ -22,12 +22,12 @@ IBTDetectorConstruction::IBTDetectorConstruction()
    DefineMaterials();
 }
 
-IBTDetectorConstruction::~IBTDetectorConstruction()
+MyDetectorConstruction::~MyDetectorConstruction()
 {
    
 }
 
-void IBTDetectorConstruction::DefineMaterials()
+void MyDetectorConstruction::DefineMaterials()
 {
    G4NistManager *manager = G4NistManager::Instance();
 
@@ -37,7 +37,7 @@ void IBTDetectorConstruction::DefineMaterials()
    fKaptonMat = manager->FindOrBuildMaterial("G4_KAPTON");
 }
 
-G4VPhysicalVolume *IBTDetectorConstruction::Construct()
+G4VPhysicalVolume *MyDetectorConstruction::Construct()
 {
    // world volume
    G4double worldX = 0.1*m;
@@ -93,11 +93,11 @@ G4VPhysicalVolume *IBTDetectorConstruction::Construct()
    return worldPV;
 }
 
-void IBTDetectorConstruction::ConstructSDandField()
+void MyDetectorConstruction::ConstructSDandField()
 {
 
    // Sensitive Detectors
-   G4VSensitiveDetector *SD = new IBTSD("SD", "HC");
+   G4VSensitiveDetector *SD = new MySD("SD", "HC");
    G4SDManager::GetSDMpointer()->AddNewDetector(SD);
    
    G4LogicalVolumeStore *lvStore = G4LogicalVolumeStore::GetInstance();

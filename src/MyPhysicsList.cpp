@@ -9,10 +9,10 @@
 #include <G4IonElasticPhysics.hh>
 #include <G4IonBinaryCascadePhysics.hh>
 
-#include "IBTPhysicsList.hpp"
+#include "MyPhysicsList.hpp"
 
 
-IBTPhysicsList::IBTPhysicsList()
+MyPhysicsList::MyPhysicsList()
    :  G4VModularPhysicsList()
 {
    G4int verbose = 1;
@@ -42,5 +42,5 @@ IBTPhysicsList::IBTPhysicsList()
    RegisterPhysics(new G4IonBinaryCascadePhysics(verbose));
 }
 
-IBTPhysicsList::~IBTPhysicsList()
+MyPhysicsList::~MyPhysicsList()
 {}

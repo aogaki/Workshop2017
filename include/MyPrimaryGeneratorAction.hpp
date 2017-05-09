@@ -1,5 +1,5 @@
-#ifndef IBTPrimaryGeneratorAction_h
-#define IBTPrimaryGeneratorAction_h 1
+#ifndef MyPrimaryGeneratorAction_h
+#define MyPrimaryGeneratorAction_h 1
 
 #include <G4VUserPrimaryGeneratorAction.hh>
 #include <G4ParticleGun.hh>
@@ -9,11 +9,11 @@
 #include <G4GenericMessenger.hh>
 
 
-class IBTPrimaryGeneratorAction: public G4VUserPrimaryGeneratorAction
+class MyPrimaryGeneratorAction: public G4VUserPrimaryGeneratorAction
 {
 public:
-   IBTPrimaryGeneratorAction(G4bool monoFlag, G4double ene);
-   virtual ~IBTPrimaryGeneratorAction();
+   MyPrimaryGeneratorAction();
+   virtual ~MyPrimaryGeneratorAction();
 
    virtual void GeneratePrimaries(G4Event *);
 
@@ -21,9 +21,6 @@ private:
    G4ParticleGun *fParticleGun;
    G4double fZPosition;
    G4bool fFirstFlag;
-
-   G4bool fMonoFlag;
-   G4double fEnergy;
    
    // Ion parameters
    void SetIon();

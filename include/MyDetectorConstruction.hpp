@@ -1,5 +1,5 @@
-#ifndef IBTDetectorConstruction_h
-#define IBTDetectorConstruction_h 1
+#ifndef MyDetectorConstruction_h
+#define MyDetectorConstruction_h 1
 
 #include <vector>
 
@@ -9,11 +9,11 @@
 #include <G4VisAttributes.hh>
 
 
-class IBTDetectorConstruction : public G4VUserDetectorConstruction
+class MyDetectorConstruction : public G4VUserDetectorConstruction
 {
 public:
-   IBTDetectorConstruction();
-   virtual ~IBTDetectorConstruction();
+   MyDetectorConstruction();
+   virtual ~MyDetectorConstruction();
 
    virtual G4VPhysicalVolume *Construct();
    virtual void ConstructSDandField();

@@ -3,13 +3,13 @@
 #include "G4UnitsTable.hh"
 #include "G4SystemOfUnits.hh"
 
-#include "IBTHit.hpp"
+#include "MyHit.hpp"
 
 
-G4ThreadLocal G4Allocator<IBTHit> *IBTHitAllocator = 0;
+G4ThreadLocal G4Allocator<MyHit> *MyHitAllocator = 0;
 
 
-IBTHit::IBTHit()
+MyHit::MyHit()
    : G4VHit(),
      fTrackID(0),
      fKineticEnergy(0),
@@ -22,20 +22,20 @@ IBTHit::IBTHit()
      fVolumeName("")
 {}
 
-IBTHit::~IBTHit()
+MyHit::~MyHit()
 {}
 
-IBTHit::IBTHit(const IBTHit & /*right*/)
+MyHit::MyHit(const MyHit & /*right*/)
    : G4VHit()
 {}
 
-const IBTHit &
-IBTHit::operator=(const IBTHit & /*right*/)
+const MyHit &
+MyHit::operator=(const MyHit & /*right*/)
 {
    return *this;
 }
 
-int IBTHit::operator==(const IBTHit & /*right*/) const
+int MyHit::operator==(const MyHit & /*right*/) const
 {
    return 0;
 }
