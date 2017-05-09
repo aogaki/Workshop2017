@@ -38,9 +38,15 @@ G4bool MySD::ProcessHits(G4Step *step, G4TouchableHistory */*history*/)
    G4int trackID = track->GetTrackID();
    if(trackID != 1) return false; // only the primal particle
 
+   G4int parentID = track->GetParentID();
+
+   G4ParticleDefinition *particle = track->GetDefinition();
+   G4int pdgCode = particle->GetPDGEncoding();
+   G4String parName = particle->GetParticleName();
+
    G4StepPoint *postStepPoint = step->GetPostStepPoint();
    G4int isExit = (postStepPoint->GetStepStatus() == fGeomBoundary);
-   if(isExit == 0) return false; // only going out particle
+   //if(isExit == 0) return false; // only going out particle
    MyHit *newHit = new MyHit();
    newHit->SetIsExit(isExit);
       
