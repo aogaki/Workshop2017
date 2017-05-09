@@ -18,27 +18,18 @@
 #include <G4UIExecutive.hh>
 #endif
 
-#include <QGSP_BIC_HP.hh>
-
-#include "IBTDetectorConstruction.hpp"
-#include "IBTActionInitialization.hpp"
-#include "IBTPhysicsList.hpp"
+#include "MyDetectorConstruction.hpp"
+#include "MyActionInitialization.hpp"
+#include "MyPhysicsList.hpp"
 
 
 int main(int argc, char **argv)
 {
    G4String macro = "";
-   G4bool monoFlag = false;
-   G4double ene = 0.;
    for(G4int i = 1; i < argc; i++) {
       if(G4String(argv[i]) == "-m"){
          if(++i < argc) macro = argv[i];
          else G4cout << "eneter macro file name!" << G4endl;
-      }
-      else if(G4String(argv[i]) == "-e"){
-         monoFlag = true;
-         if(++i < argc) ene = std::stod(argv[i]);
-         else G4cout << "eneter kinetic energy!" << G4endl;
       }
    }
    
@@ -57,16 +48,15 @@ int main(int argc, char **argv)
 #endif
 
    // Detector construction
-   runManager->SetUserInitialization(new IBTDetectorConstruction());
+   runManager->SetUserInitialization(new MyDetectorConstruction());
 
    // Physics list
-   //G4VModularPhysicsList *physicsList = new QGSP_BIC_HP();
-   G4VModularPhysicsList *physicsList = new IBTPhysicsList();
+   G4VModularPhysicsList *physicsList = new MyPhysicsList();
    physicsList->SetVerboseLevel(0);
    runManager->SetUserInitialization(physicsList);
 
    // Primary generator action and User action intialization
-   runManager->SetUserInitialization(new IBTActionInitialization(monoFlag, ene));
+   runManager->SetUserInitialization(new MyActionInitialization());
 
    // Initialize G4 kernel
    //
@@ -94,9 +84,6 @@ int main(int argc, char **argv)
 #else
       UImanager->ApplyCommand("/control/execute init.mac");
 #endif
-      if (ui->IsGUI()) {
-         UImanager->ApplyCommand("/control/execute icons.mac");
-      }
       ui->SessionStart();
       delete ui;
 #endif
