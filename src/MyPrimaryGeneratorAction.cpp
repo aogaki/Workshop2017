@@ -1,3 +1,5 @@
+#include <TFile.h>
+
 #include <G4SystemOfUnits.hh>
 #include <G4Threading.hh>
 #include <G4AutoLock.hh>
@@ -31,13 +33,23 @@ MyPrimaryGeneratorAction::MyPrimaryGeneratorAction()
 
    G4ParticleTable* particleTable = G4ParticleTable::GetParticleTable();
    G4ParticleDefinition* particle
-      = particleTable->FindParticle("geantino");
+      = particleTable->FindParticle("gamma");
    fParticleGun->SetParticleDefinition(particle);
    fParticleGun->SetParticlePosition(G4ThreeVector(0., 0., fZPosition));
-   fParticleGun->SetParticleEnergy(1.*MeV);    
+   fParticleGun->SetParticleEnergy(511.*keV);    
    fParticleGun->SetParticleMomentumDirection(G4ThreeVector(0., 0., 1.));
 
    DefineCommands();
+   
+   G4AutoLock lock(&mutexInPGA);
+   TFile *file = new TFile("Data/energy.root", "OPEN");
+   fHisSource2D = (TH2D*)file->Get("His2D");
+   fHisSource2D->SetDirectory(0);
+   fHisSource1D = (TH1D*)file->Get("HisEne");
+   fHisSource1D->SetDirectory(0);
+   file->Close();
+   delete file;
+   
 }
 
 MyPrimaryGeneratorAction::~MyPrimaryGeneratorAction()
@@ -50,11 +62,22 @@ void MyPrimaryGeneratorAction::GeneratePrimaries(G4Event *event)
 {
    if(fFirstFlag){
       fFirstFlag = false;
-      SetIon();
+      //SetIon();
    }
 
-   G4double ene = G4RandExponential::shoot(100)*MeV;
+   //G4double ene = G4RandExponential::shoot(100)*MeV;
+   G4double ene;
+   ene = fHisSource1D->GetRandom()*MeV;
+   
+   G4double theta;
+   fHisSource2D->GetRandom2(theta, ene);
+   G4double phi = G4UniformRand() * 2.*CLHEP::pi;
+   G4double vx = sin(theta) * cos(phi);
+   G4double vy = sin(theta) * sin(phi);
+   G4double vz = cos(theta);
+   
    fParticleGun->SetParticleEnergy(ene);
+   fParticleGun->SetParticleMomentumDirection(G4ThreeVector(vx, vy, vz));
    fParticleGun->GeneratePrimaryVertex(event);
 
    G4AnalysisManager *anaMan = G4AnalysisManager::Instance();

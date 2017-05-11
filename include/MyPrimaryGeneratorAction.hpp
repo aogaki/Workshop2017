@@ -1,6 +1,8 @@
 #ifndef MyPrimaryGeneratorAction_h
 #define MyPrimaryGeneratorAction_h 1
 
+#include <TH2.h>
+
 #include <G4VUserPrimaryGeneratorAction.hh>
 #include <G4ParticleGun.hh>
 #include <G4ThreeVector.hh>
@@ -35,6 +37,8 @@ private:
    // Changing Ion 
    void SetIonCmd(G4String name);
    
+   TH2D *fHisSource2D;
+   TH1D *fHisSource1D;
 };
 
 #endif
