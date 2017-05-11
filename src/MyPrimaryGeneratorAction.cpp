@@ -23,9 +23,9 @@ MyPrimaryGeneratorAction::MyPrimaryGeneratorAction()
    fFirstFlag = true;
    fZPosition = -300.*mm;
    
-   fZ = 1;
-   fA = 1;
-   fIonCharge   = 1.*eplus;
+   fZ = 6;
+   fA = 12;
+   fIonCharge   = 6.*eplus;
    fExcitEnergy = 0.*keV;
 
    G4int nPar = 1;
@@ -62,7 +62,7 @@ void MyPrimaryGeneratorAction::GeneratePrimaries(G4Event *event)
 {
    if(fFirstFlag){
       fFirstFlag = false;
-      //SetIon();
+      SetIon();
    }
 
    //G4double ene = G4RandExponential::shoot(100)*MeV;
@@ -96,7 +96,7 @@ void MyPrimaryGeneratorAction::SetIon()
       = G4IonTable::GetIonTable()->GetIon(fZ, fA, fExcitEnergy);
    fParticleGun->SetParticleDefinition(ion);
    fParticleGun->SetParticleCharge(fIonCharge);
-   G4cout << "Beam changed\tZ = " << fZ
+   G4cout << "Beam changed:\tZ = " << fZ
           << ", A = " << fA
           << ", Charge = " << fIonCharge << G4endl;
 }
