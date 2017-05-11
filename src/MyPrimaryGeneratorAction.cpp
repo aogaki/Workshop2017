@@ -1,7 +1,7 @@
 #include <TFile.h>
 
 #include <G4SystemOfUnits.hh>
-#include <G4Threading.hh>
+//#include <G4Threading.hh>
 #include <G4AutoLock.hh>
 #include <G4ParticleTable.hh>
 #include <G4ChargedGeantino.hh>

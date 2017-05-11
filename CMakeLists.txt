@@ -24,7 +24,9 @@ endif()
 # Setup include directory for this project
 #
 include(${Geant4_USE_FILE})
-include(FindROOT.cmake)
+#include(FindROOT.cmake)
+list(APPEND CMAKE_PREFIX_PATH $ENV{ROOTSYS})
+find_package(ROOT REQUIRED COMPONENTS RIO Net)
 
 #----------------------------------------------------------------------------
 # Locate sources and headers for this project
