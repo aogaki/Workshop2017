@@ -1,3 +1,4 @@
+#include <G4Tubs.hh>
 #include <G4Box.hh>
 #include <G4NistManager.hh>
 #include <G4SystemOfUnits.hh>
@@ -75,10 +76,9 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
                           false, 0, fCheckOverlap);
 
    // NaI
-   G4double scinti1W = 16.*mm;
-   G4double scinti1H = 16.*mm;
+   G4double scinti1D = 16.*mm;
 
-   G4Box *scinti1S = new G4Box("NaI", scinti1W / 2., scinti1H / 2., fScinti1T / 2.);
+   G4Tubs *scinti1S = new G4Tubs("NaI", 0., scinti1D / 2., fScinti1T / 2., 0., 360.*deg);
    G4LogicalVolume *scinti1LV = new G4LogicalVolume(scinti1S, fScinti1Mat, "NaI");
    visAttributes = new G4VisAttributes(G4Colour::Magenta());
    scinti1LV->SetVisAttributes(visAttributes);
