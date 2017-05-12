@@ -7,6 +7,7 @@
 #include <G4VPhysicalVolume.hh>
 #include <G4Material.hh>
 #include <G4VisAttributes.hh>
+#include <G4GenericMessenger.hh>
 
 
 class MyDetectorConstruction : public G4VUserDetectorConstruction
@@ -24,14 +25,23 @@ private:
    // Materials
    void DefineMaterials();
    G4Material *fVacuumMat;
-   G4Material *fAirMat;
-   G4Material *fKaptonMat;
+   G4Material *fScinti1Mat;
+   G4Material *fScinti2Mat;
    
-   G4double fKaptonT;
-   G4double fAirT;
+   G4double fScinti1T;
+   G4double fScinti2T;
    
    std::vector<G4VisAttributes *> fVisAttributes;
 
+   // UI commnad
+   G4GenericMessenger *fMessenger;
+   G4VPhysicalVolume *fScinti1PV;
+   G4VPhysicalVolume *fScinti2PV;
+   G4VPhysicalVolume *fScinti2ColumnPV;
+   G4VPhysicalVolume *fScinti2RowPV;
+   void DefineCommands();
+   void SetScinti1T(G4double t);
+   void SetScinti2T(G4double t);
 };
 
 #endif

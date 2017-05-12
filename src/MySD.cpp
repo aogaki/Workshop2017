@@ -68,6 +68,13 @@ G4bool MySD::ProcessHits(G4Step *step, G4TouchableHistory */*history*/)
    G4ThreeVector localPosition = theTouchable->GetHistory()->
                                  GetTopTransform().TransformPoint(position);
 
+   if(volumeName == "LGSORow"){
+      G4TouchableHandle touch = preStepPoint->GetTouchableHandle();
+      G4int copyNo = touch->GetCopyNumber();
+      G4int motherCopyNo = touch->GetCopyNumber(1);
+      G4cout << motherCopyNo <<"\t"<< copyNo << G4endl;
+   }
+   
    G4String vertexName = track->GetLogicalVolumeAtVertex()->GetName();
    
    G4double kineticEnergy = postStepPoint->GetKineticEnergy();

@@ -36,11 +36,11 @@ MyPrimaryGeneratorAction::MyPrimaryGeneratorAction()
       = particleTable->FindParticle("gamma");
    fParticleGun->SetParticleDefinition(particle);
    fParticleGun->SetParticlePosition(G4ThreeVector(0., 0., fZPosition));
-   fParticleGun->SetParticleEnergy(511.*keV);    
+   fParticleGun->SetParticleEnergy(511.*keV);
    fParticleGun->SetParticleMomentumDirection(G4ThreeVector(0., 0., 1.));
 
    DefineCommands();
-   
+/*   
    G4AutoLock lock(&mutexInPGA);
    TFile *file = new TFile("Data/energy.root", "OPEN");
    fHisSource2D = (TH2D*)file->Get("His2D");
@@ -49,7 +49,7 @@ MyPrimaryGeneratorAction::MyPrimaryGeneratorAction()
    fHisSource1D->SetDirectory(0);
    file->Close();
    delete file;
-   
+*/   
 }
 
 MyPrimaryGeneratorAction::~MyPrimaryGeneratorAction()
@@ -60,6 +60,7 @@ MyPrimaryGeneratorAction::~MyPrimaryGeneratorAction()
 
 void MyPrimaryGeneratorAction::GeneratePrimaries(G4Event *event)
 {
+   /*
    if(fFirstFlag){
       fFirstFlag = false;
       SetIon();
@@ -78,13 +79,14 @@ void MyPrimaryGeneratorAction::GeneratePrimaries(G4Event *event)
    
    fParticleGun->SetParticleEnergy(ene);
    fParticleGun->SetParticleMomentumDirection(G4ThreeVector(vx, vy, vz));
+   */
    fParticleGun->GeneratePrimaryVertex(event);
-
+   /*
    G4AnalysisManager *anaMan = G4AnalysisManager::Instance();
    anaMan->FillNtupleIColumn(1, 0, event->GetEventID());
    anaMan->FillNtupleDColumn(1, 1, ene);
    anaMan->AddNtupleRow(1);
-
+   */
    G4AutoLock lock(&mutexInPGA);
    if (nEveInPGA++ % 10000 == 0)
       G4cout << nEveInPGA - 1 << " events done" << G4endl;
@@ -103,7 +105,7 @@ void MyPrimaryGeneratorAction::SetIon()
 
 void MyPrimaryGeneratorAction::DefineCommands()
 {
-   fMessenger = new G4GenericMessenger(this, "/My/Primary/", 
+   fMessenger = new G4GenericMessenger(this, "/MyCommands/Primary/", 
                                        "Beam control");
 
    // z position
