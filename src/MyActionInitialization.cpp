@@ -1,5 +1,6 @@
 #include "MyActionInitialization.hpp"
 #include "MyPrimaryGeneratorAction.hpp"
+#include "MyCo60.hpp"
 #include "MyRunAction.hpp"
 #include "MyEventAction.hpp"
 
@@ -18,7 +19,8 @@ void MyActionInitialization::BuildForMaster() const
 
 void MyActionInitialization::Build() const
 {
-   SetUserAction(new MyPrimaryGeneratorAction());
+   //SetUserAction(new MyPrimaryGeneratorAction());
+   SetUserAction(new MyCo60());
    SetUserAction(new MyRunAction());
    SetUserAction(new MyEventAction());
 }

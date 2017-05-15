@@ -39,6 +39,8 @@ private:
    
    TH2D *fHisSource2D;
    TH1D *fHisSource1D;
+
+   G4ThreeVector GetDirection(G4double limit);
 };
 
 #endif
