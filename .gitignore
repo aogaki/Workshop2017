@@ -6,7 +6,10 @@ Makefile
 result*
 *.root
 *.jpg
-*.pdf
+*.so
+.DS_Store
+*.pcm
+*.d
 *~
 example
 G4History.macro
