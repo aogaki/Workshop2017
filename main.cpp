@@ -55,7 +55,7 @@ int main(int argc, char **argv)
    physicsList->SetVerboseLevel(0);
    runManager->SetUserInitialization(physicsList);
 
-   // Primary generator action and User action intialization
+   // Primary generator action and User action initialization
    runManager->SetUserInitialization(new MyActionInitialization());
 
    // Initialize G4 kernel

@@ -20,7 +20,7 @@ void MyRunAction::BeginOfRunAction(const G4Run *)
    anaMan->OpenFile(fileName);
 
    // Ntuple
-   anaMan->CreateNtuple("My", "Ion beam test");
+   anaMan->CreateNtuple("hits", "Each hit information");
    anaMan->CreateNtupleIColumn(0, "EventID");
    anaMan->CreateNtupleIColumn(0, "TrackID");
    anaMan->CreateNtupleSColumn(0, "VolumeName");

@@ -124,7 +124,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
    fVisAttributes.push_back(visAttributes);
    fScinti2RowPV = new G4PVReplica("LGSORow", scinti2RowLV,
                                    scinti2ColumnLV, kYAxis, 16, meshSize);
-  
+
    return worldPV;
 }
 
