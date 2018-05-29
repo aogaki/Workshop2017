@@ -5,7 +5,8 @@ project(MyPro)
 
 # I wanna compile with C++11 and speed! Aogaki
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-add_definitions("-std=c++11 -march=native -mtune=native")    
+add_definitions("-std=c++11 -march=native -mtune=native")
+SET(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 #----------------------------------------------------------------------------
 # Find Geant4 package, activating all available UI and Vis drivers by default
@@ -32,7 +33,7 @@ find_package(ROOT REQUIRED COMPONENTS RIO Net)
 # Locate sources and headers for this project
 # NB: headers are included so they will show up in IDEs
 #
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include 
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include
                     ${Geant4_INCLUDE_DIR}
                     ${ROOT_INCLUDE_DIR})
 link_directories(${ROOT_LIBRARY_DIR})
@@ -51,11 +52,11 @@ target_link_libraries(example ${Geant4_LIBRARIES};${ROOT_LIBRARIES})
 # relies on these scripts being in the current working directory.
 #
 set(MyPro_SCRIPTS
-  init.mac 
-  init_vis.mac 
-  run.mac 
-  test.mac 
-  vis.mac 
+  init.mac
+  init_vis.mac
+  run.mac
+  test.mac
+  vis.mac
   )
 
 foreach(_script ${MyPro_SCRIPTS})
@@ -76,4 +77,3 @@ add_custom_target(MyPro DEPENDS example)
 # Install the executable to 'bin' directory under CMAKE_INSTALL_PREFIX
 #
 install(TARGETS example DESTINATION bin)
-
